@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-  { "src": "/images/Bulbizar.png" },
-  { "src": "/images/carapuce.png" },
-  { "src": "/images/Metamorph.png" },
-  { "src": "/images/Pikachu.jpg" },
-  { "src": "/images/Ptitard.png" },
-  { "src": "/images/Salameche.jpg" },
-  //{ "src": "/images/Dos_carte_pokemon.jpg" },
+  { "src": "/images/Bulbizar.png", matched: false },
+  { "src": "/images/carapuce.png", matched: false },
+  { "src": "/images/Metamorph.png", matched: false },
+  { "src": "/images/Pikachu.jpg", matched: false },
+  { "src": "/images/Ptitard.png", matched: false },
+  { "src": "/images/Salameche.jpg", matched: false },
 ]
 
 function App() {
@@ -35,7 +34,15 @@ function App() {
   useEffect(() => {
     if (choiceOne && choicetwo) {
       if (choiceOne.src === choicetwo.src) {
-        console.log('bonne réponse')
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.src === choiceOne.src) {
+              return {...card, matched: true}
+            } else {
+              return card
+            }
+          })
+        })
         resetTurn()
       } else {
         console.log('mauvaise réponse')
@@ -43,6 +50,8 @@ function App() {
       }
     }
   }, [choiceOne, choicetwo])
+
+  console.log(cards)
 
   const resetTurn = () => {
     setChoiceOne(null)
