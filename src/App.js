@@ -45,8 +45,7 @@ function App() {
         })
         resetTurn()
       } else {
-        console.log('mauvaise réponse')
-        resetTurn()
+        setTimeout(() => resetTurn(), 1000)
       }
     }
   }, [choiceOne, choicetwo])
@@ -70,6 +69,7 @@ function App() {
            key={card.id}
            card={card}
            handleChoice={handleChoice}
+           flipped={card === choiceOne || card === choicetwo || card.matched}
           />
         ))}
       </div>
